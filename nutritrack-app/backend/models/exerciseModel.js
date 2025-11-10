@@ -84,11 +84,19 @@ exports.addExerciseLog = async (exerciseData) => {
       throw new Error('Invalid user ID format');
     }
     
+    // Ensure date is a Date object (it might already be a Date object from the route)
+    const exerciseDate = date instanceof Date ? date : new Date(date);
+    
+    // Validate the date
+    if (isNaN(exerciseDate.getTime())) {
+      throw new Error('Invalid date format');
+    }
+    
     const newLog = new ExerciseLog({
       userId: new mongoose.Types.ObjectId(userId),
       activityType: activityType.trim(),
       duration: duration.trim(),
-      date: new Date(date),
+      date: exerciseDate,
       caloriesBurned: Number(caloriesBurned)
     });
     

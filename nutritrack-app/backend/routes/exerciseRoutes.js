@@ -59,24 +59,23 @@ router.get('/', async (req, res) => {
 // POST /api/exercises - Add a new exercise log
 router.post('/', async (req, res) => {
   try {
-    const { ActivityType, Duration, Date, CaloriesBurned } = req.body;
+    const { ActivityType, Duration, Date: exerciseDateStr, CaloriesBurned } = req.body;
     const userId = req.user.id;
     
     // Validate input
-    if (!ActivityType || !Duration || !Date || CaloriesBurned === undefined) {
+    if (!ActivityType || !Duration || !exerciseDateStr || CaloriesBurned === undefined) {
       return res.status(400).json({
         success: false,
         message: 'Please provide all required fields: ActivityType, Duration, Date, and CaloriesBurned'
       });
     }
     
-    // Validate date format (Date is a reserved keyword, use dateString)
-    const dateString = Date;
-    const exerciseDate = new Date(dateString);
+    // Validate date format - Date is a reserved keyword, so we use exerciseDateStr
+    const exerciseDate = new Date(exerciseDateStr);
     if (isNaN(exerciseDate.getTime())) {
       return res.status(400).json({
         success: false,
-        message: 'Invalid date format'
+        message: 'Invalid date format. Please use YYYY-MM-DD format.'
       });
     }
     
@@ -97,12 +96,12 @@ router.post('/', async (req, res) => {
       });
     }
     
-    // Add exercise log
+    // Add exercise log - use the validated Date object
     const exerciseData = {
       userId,
       activityType: ActivityType.trim(),
       duration: Duration.trim(),
-      date: dateString,
+      date: exerciseDate, // Use the validated Date object
       caloriesBurned: calories
     };
     
