@@ -1,0 +1,22 @@
+# Render Blueprint for NutriTrack Backend
+
+services:
+  - type: web
+    name: nutritrack-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 4000
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false  # Set this in Render dashboard
+      - key: JWT_SECRET
+        sync: false  # Set this in Render dashboard
+      - key: FRONTEND_URL
+        sync: false  # Set this in Render dashboard after frontend deployment
+

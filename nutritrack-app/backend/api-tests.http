@@ -1,0 +1,147 @@
+### NutriTrack API Tests
+### Use REST Client extension to run these tests
+
+@baseUrl = http://localhost:4000
+@token = your_token_here
+
+### 1. Test Server Health
+GET {{baseUrl}}/
+
+### 2. Login as Admin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@nutritrack.com",
+  "password": "admin123"
+}
+
+### 3. Login as Patient
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "rohit@nutritrack.com",
+  "password": "patient123"
+}
+
+### 4. Get User Profile (Replace @token with actual token)
+GET {{baseUrl}}/api/auth/profile
+Authorization: Bearer {{token}}
+
+### 5. Get All Meals
+GET {{baseUrl}}/api/meals/meals
+Authorization: Bearer {{token}}
+
+### 6. Get Daily Calorie Limit
+GET {{baseUrl}}/api/meals/dailylimit
+Authorization: Bearer {{token}}
+
+### 7. Log a Meal
+POST {{baseUrl}}/api/meals/log
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "mealId": "meal_id_here",
+  "mealType": "Breakfast",
+  "date": "2024-01-15"
+}
+
+### 8. Get Meal Logs for a Date
+GET {{baseUrl}}/api/meals/logs/2024-01-15
+Authorization: Bearer {{token}}
+
+### 9. Get All Exercise Logs
+GET {{baseUrl}}/api/exercises?filter=all
+Authorization: Bearer {{token}}
+
+### 10. Add Exercise Log
+POST {{baseUrl}}/api/exercises
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "ActivityType": "Running",
+  "Duration": "30 minutes",
+  "Date": "2024-01-15",
+  "CaloriesBurned": 300
+}
+
+### 11. Get Dieticians
+GET {{baseUrl}}/api/appointments/dieticians
+Authorization: Bearer {{token}}
+
+### 12. Get User Appointments
+GET {{baseUrl}}/api/appointments/user
+Authorization: Bearer {{token}}
+
+### 13. Schedule Appointment
+POST {{baseUrl}}/api/appointments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "dieticianId": "dietician_id_here",
+  "date": "2024-01-20",
+  "time": "10:00"
+}
+
+### 14. Get Nutritional Goals
+GET {{baseUrl}}/api/diet/nutritional-goals
+Authorization: Bearer {{token}}
+
+### 15. Get User Goal
+GET {{baseUrl}}/api/diet/user-goal
+Authorization: Bearer {{token}}
+
+### 16. Save User Goal
+POST {{baseUrl}}/api/diet/user-goal
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nutritionalGoal": "High Protein",
+  "exerciseLevel": "Medium"
+}
+
+### 17. Get Recommended Meals
+GET {{baseUrl}}/api/diet/recommended-meals?nutritionalGoal=High Protein&exerciseLevel=Medium
+Authorization: Bearer {{token}}
+
+### 18. Generate Report
+GET {{baseUrl}}/api/reports/generate?reportType=daily&startDate=2024-01-01&endDate=2024-01-31
+Authorization: Bearer {{token}}
+
+### 19. Get Patient Profile
+GET {{baseUrl}}/api/patient/profile
+Authorization: Bearer {{token}}
+
+### 20. Update Patient Profile
+PUT {{baseUrl}}/api/patient/profile
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "height": 180,
+  "weight": 75
+}
+
+### 21. Get All Users (Admin only)
+GET {{baseUrl}}/api/admin/users
+Authorization: Bearer {{token}}
+
+### 22. Add User (Admin only)
+POST {{baseUrl}}/api/admin/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "New User",
+  "email": "newuser@example.com",
+  "password": "password123",
+  "role": "patient",
+  "height": 170,
+  "weight": 70
+}
+

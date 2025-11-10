@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Production
+build/
+dist/
+
+# Misc
+.DS_Store
+
+# Environment variables
+.env          # Ignore main env file
+.env.*        # Ignore environment variations (local, prod, etc.)
+!.env.example # Allow .env.example to be tracked by git
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+Thumbs.db
+
+# Build outputs
+*.log
+.cache
+
+# MongoDB
+*.mongodb
+
+# Railway
+.railway
+
+# Vercel
+.vercel
+
+# Netlify
+.netlify
+
+# Scripts
+push-to-github.sh
